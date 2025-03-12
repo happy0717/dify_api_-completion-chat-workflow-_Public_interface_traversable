@@ -1,5 +1,5 @@
 # dify api [completion/chat/workflow] Public interface traversable
-dify api [completion/chat/workflow] There is a public interface traversal vulnerability. Unauthorized attackers can obtain device information by traversing the 16-bit API path and use the newly created model application.
+dify api [completion/chat/workflow] There is a public interface traversal vulnerability. Unauthorized attackers can obtain device information by traversing the 16-bit API path and use the newly created model application.Unauthorized attackers can use the specific path behind the [completion/chat/workflow] API as the application identifier of the model API. After successfully obtaining the API, they can use the model application created by the Dify content creator through the traversed API, and can use the model resources of the Dify content creator without restriction, and even the physical host resources of the model.
 # What is Dify 
 is an open-source LLM app development platform. Dify's intuitive interface combines AI workflow, RAG pipeline, agent capabilities, model management, observability features and more, letting you quickly go from prototype to production.https://github.com/langgenius/dify
 
@@ -22,7 +22,14 @@ According to the official documentation(https://docs.dify.ai/guides/application-
 In addition, there is no prompt to users on the model application creation page, and there is no clear indication that the created model application will be public. It turns out that most users do not know that the newly created model application is public.
 # Risk Description
 
-The risk here can correspond to OWASP Top 10 API Security Risks – 2023：1.API5:2023 - Broken Function Level Authorization 2.API6:2023 - Unrestricted Access to Sensitive Business Flows 3.API4:2023 - Unrestricted Resource Consumption
+The risk here can correspond to OWASP Top 10 API Security Risks – 2023：
+
+1.API5:2023 - Broken Function Level Authorization 
+
+2.API6:2023 - Unrestricted Access to Sensitive Business Flows 
+
+3.API4:2023 - Unrestricted Resource Consumption
+
 Unauthorized attackers can use the specific path behind the [completion/chat/workflow] API as the application identifier of the model API. After successfully obtaining the API, they can use the model application created by the Dify content creator through the traversed API, and can use the model resources of the Dify content creator without restriction, and even the physical host resources of the model.
 # Why are model application parameters traversable?
 
